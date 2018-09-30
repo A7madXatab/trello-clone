@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    text-align: left;
+    display: block;
+    padding: 4px 10px;
+    margin: 4px 4px;
+
+}
+
+ul li.active {
+    background-color: rgba(54, 54, 223, 0.315);
+}
+
+ul li.active i {
+    color: rgb(54, 54, 223);
+}
+
+div.boardStyle {
+    position: relative;
+    color: white;
+    padding: 40px 25px;
+    margin: 10px 10px;
+    border-radius: 3px;
+}
+
+div.boardStyle.welcomeBoard {
+    background-color: rgb(83, 212, 83);
+}
+
+div.boardStyle h6 {
+    position: absolute;
+    top: 0;
+    left: 2%;
+}
+
+div.newBoard {
+    background-color: lightgray;
+    color: black;
+}
+
+div.boardStyle i.fa-star {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    transition: 0.3s all;
+    transform: translateX(25px);
+    transform-style: preserve-3d;
+    transform-origin: right;
+}
+
+div.boardStyle:hover i.fa-star {
+    transform: translateX(0px);
+}
+
+div.board {
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+div.board div input {
+    width: 90%;
+    border: none;
+    margin: 2px 0;
+    padding-left: 2px;
+    background: none;
+    color: white;
+}
+
+div.board div input:hover {
+    background-color: white;
+    opacity: .7;
+}
+
+div.board div input:focus {
+    outline: none;
+    background-color: white;
+    opacity: 1;
+    color: black;
+}
+
+i.fa-times {
+    position: absolute;
+    top: 0;
+    color: white;
+    right: 0;
+}

@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "starred": false,
+      "opened": false,
+      "title": "test",
+      "lists": [
+        {
+          "id": 1
+        }
+      ]
+    },
+    {
+      "title": "Added",
+      "stared": false,
+      "opened": false,
+      "backgroundColor": "green",
+      "lists": [],
+      "id": 2
+    }
+  ],
+  "colors": [
+    "red",
+    "green",
+    "white",
+    "pink",
+    "violet",
+    "lightgray",
+    "cyan"
+  ]
+}
