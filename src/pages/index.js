@@ -13,20 +13,66 @@ import {
 import Layout from '../components/layout'
 import './style.css'
 import axios from 'axios'
+import SecondPage from './page-2'
+import { func } from 'prop-types'
+import * as $ from 'jquery'
+import IntoBoard from './board'
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       isOpen: false,
+      posts: [],
+      recenet: [],
+      stared: [],
+      activeBoard: false,
+      post: '',
     }
   }
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen })
   }
-  createNewBoard = () => {}
+  componentDidMount() {
+    axios.get('http://localhost:3000/posts').then(res => {
+      this.setState({
+        posts: res.data,
+        stared: res.data.filter(post => post.stared === true),
+        opened: res.data.filter(post => post.opened === true),
+      })
+    })
+  }
+  setAsFavorite = post => {
+    console.log('clicked')
+    post.stared = !post.stared
+    axios.put('http://localhost:3000/posts/' + post.id, post).then(res => {
+      this.setState({
+        posts: this.state.posts.filter(p => {
+          if (p.id === post.id) return res.data
+
+          return p
+        }),
+      })
+    })
+  }
+  activate = p => {
+    this.setState({
+      activeBoard: true,
+      post: p,
+    })
+  }
+  deActivate = () =>{
+    this.setState({
+      activeBoard:false
+    })
+  }
   render() {
     return (
       <Layout>
+        {this.state.activeBoard ? (
+          <IntoBoard post={this.state.post} toggleStar={this.setAsFavorite} hideBoard={this.deActivate}/>
+        ) : (
+          ''
+        )}
         {this.state.isOpen ? <NewBoard toggle={this.toggle} /> : ''}
         <Row>
           <Col md="3">
@@ -49,17 +95,24 @@ class IndexPage extends React.Component {
             </ul>
           </Col>
           <Col md="9">
-            <div className="starred col-12" />
-            <div className="recent" />
+            <div className="starred col-12 d-flex flex-row" />
+            <div className="recent d-flex flex-row" />
             <div className="personal">
               <div>
                 <h6>
-                  <i class="far fa-user mr-1" />
+                  <i className="far fa-user mr-1" />
                   Personal Boards
                 </h6>
               </div>
-              <div className="d-flex flex-row">
-                <div className="col-3 boardStyle welcomeBoard">
+              <Row className="boards">
+                {this.state.posts.map(post => (
+                  <GenerateContainer
+                    post={post}
+                    func={this.setAsFavorite}
+                    activate={this.activate}
+                  />
+                ))}
+                <div className="col-md-3 boardStyle welcomeBoard">
                   <h6>Welcome Board</h6>
                   <i className="far fa-star" />
                 </div>
@@ -74,7 +127,7 @@ class IndexPage extends React.Component {
                     Create new Board
                   </p>
                 </div>
-              </div>
+              </Row>
             </div>
           </Col>
         </Row>
@@ -82,7 +135,30 @@ class IndexPage extends React.Component {
     )
   }
 }
-
+function GenerateContainer(props) {
+  return (
+    <div
+      key={props.post.id}
+      className="boardStyle col-3"
+      style={{ backgroundColor: props.post.backgroundColor }}
+    >
+      <div onClick={() => props.activate(props.post)}>
+        <h5>{props.post.title}</h5>
+      </div>
+      {props.post.stared ? (
+        <i
+          className="far fa-star mb-1 mr-1"
+          onClick={() => props.func(props.post)}
+        />
+      ) : (
+        <i
+          className="far fa-star stared mb-1 mr-1"
+          onClick={() => props.func(props.post)}
+        />
+      )}
+    </div>
+  )
+}
 class NewBoard extends React.Component {
   constructor(props) {
     super(props)
@@ -147,7 +223,7 @@ class NewBoard extends React.Component {
                 onClick={() => this.setState({ color: color })}
               >
                 {this.state.color === color ? (
-                  <i class="fas fa-check position-absolute" />
+                  <i className="fas fa-check position-absolute" />
                 ) : (
                   ''
                 )}
@@ -157,7 +233,8 @@ class NewBoard extends React.Component {
         </div>
         <Button
           className="mt-2"
-          color="secondary"
+          color="success"
+          disabled={this.state.title === '' ? true : false}
           onClick={() => this.createBoard()}
         >
           Create Board

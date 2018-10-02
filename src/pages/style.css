@@ -53,18 +53,38 @@ div.newBoard {
     color: black;
 }
 
+div.boardStyle {
+    position: relative;
+}
+
 div.boardStyle i.fa-star {
     position: absolute;
     bottom: 2%;
     right: 2%;
     transition: 0.3s all;
+    opacity: 0;
     transform: translateX(25px);
     transform-style: preserve-3d;
     transform-origin: right;
 }
 
-div.boardStyle:hover i.fa-star {
+div.boardStyle i.fa-star.stared {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    color: gold;
+    opacity: 1;
     transform: translateX(0px);
+    transition: none;
+}
+
+div.boardStyle:hover i.fa-star {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+div.boardStyle:hover i.fa-star:hover {
+    transform: scale(1.3)
 }
 
 div.board {
@@ -98,4 +118,33 @@ i.fa-times {
     top: 0;
     color: white;
     right: 0;
+    cursor: pointer;
+}
+
+i.fa-times.crossed {
+    position: relative;
+}
+
+div.boardDetails {
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    position: absolute;
+    top: 45px;
+    left: 0;
+}
+
+div.list {
+    position: relative;
+    background-color: #cecece;
+    color: black;
+}
+
+div.list input {
+    width: 100%;
+    border: none;
+}
+
+div.list input:focus {
+    outline: none;
 }

@@ -1,23 +1,46 @@
 {
   "posts": [
     {
-      "id": 1,
-      "starred": false,
-      "opened": false,
-      "title": "test",
-      "lists": [
-        {
-          "id": 1
-        }
-      ]
-    },
-    {
       "title": "Added",
-      "stared": false,
+      "stared": true,
       "opened": false,
       "backgroundColor": "green",
-      "lists": [],
+      "lists": [
+        {
+          "name": "Added",
+          "cards": []
+        },
+        {
+          "name": "added2",
+          "cards": []
+        },
+        {
+          "name": "added3",
+          "cards": []
+        }
+      ],
       "id": 2
+    },
+    {
+      "title": "Added 2",
+      "stared": true,
+      "opened": false,
+      "backgroundColor": "violet",
+      "lists": [
+        {
+          "name": "Added 2",
+          "cards": []
+        }
+      ],
+      "id": 3
+    },
+    {
+      "title": "tts",
+      "stared": true,
+      "opened": false,
+      "backgroundColor": "cyan",
+      "lists": [],
+      "id": 4
     }
   ],
   "colors": [

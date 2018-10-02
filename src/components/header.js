@@ -33,7 +33,7 @@ export default class Header extends React.Component {
   }
   render() {
     return (
-      <div className="d-flex flex-row hh">
+      <div className="d-flex flex-row hh" style={{ zIndex: '999' }}>
         <Col className="col-lg-3 text-left col-sm-4 left my-2">
           <span className="mt-2 mr-2 py-1 px-2">
             <i className="fas fa-home" />
